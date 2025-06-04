@@ -1,0 +1,20 @@
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/api/books/**").hasRole("LIBRARIAN")
+            .antMatchers("/api/users/**").hasRole("LIBRARIAN")
+            .antMatchers("/api/transactions/**").hasRole("LIBRARIAN")
+            .anyRequest().authenticated()
+            .and()
+            .httpBasic();
+    }
+}
+
+
+//data configurations
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2
