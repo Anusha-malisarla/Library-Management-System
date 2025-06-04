@@ -1,0 +1,28 @@
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+    @Autowired private BookService bookService;
+    @PostMapping public ResponseEntity<Book> addBook(@RequestBody Book book) { return ResponseEntity.ok(bookService.addBook(book)); }
+    @GetMapping("/category/{category}") public ResponseEntity<List<Book>> getBooksByCategory(@PathVariable String category) { return ResponseEntity.ok(bookService.getBooksByCategory(category)); }
+    @GetMapping("/search/{title}") public ResponseEntity<List<Book>> searchBooks(@PathVariable String title) { return ResponseEntity.ok(bookService.searchBooks(title)); }
+    // Other endpoints
+}
+
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    @Autowired private UserService userService;
+    @PostMapping public ResponseEntity<User> addUser(@RequestBody User user) { return ResponseEntity.ok(userService.addUser(user)); }
+    // Other endpoints
+}
+
+@RestController
+@RequestMapping("/api/transactions")
+public class TransactionController {
+    @Autowired private TransactionService transactionService;
+    @PostMapping("/lend") public ResponseEntity<Transaction> lendBook(@RequestBody Transaction transaction) { return ResponseEntity.ok(transactionService.lendBook(transaction)); }
+    @PutMapping("/return/{transactionId}") public ResponseEntity<Transaction> returnBook(@PathVariable Long transactionId) { return ResponseEntity.ok(transactionService.returnBook(transactionId)); }
+    // Other endpoints
+}
+
