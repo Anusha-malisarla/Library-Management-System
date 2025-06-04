@@ -1,0 +1,12 @@
+public interface BookRepository extends JpaRepository<Book, Long> {
+    List<Book> findByCategory(String category);
+    List<Book> findByTitleContaining(String title);
+}
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    // Custom queries if needed
+}
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+    List<Transaction> findByUserId(Long userId);
+    List<Transaction> findByStatus(String status);
+}
